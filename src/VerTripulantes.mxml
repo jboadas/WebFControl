@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"  xmlns:s="library://ns.adobe.com/flex/spark" width="288" height="194" title="Tripulantes" horizontalCenter="center">
+	<s:Label x="58" y="10" text="Capitan : "/>
+	<s:Label x="56" y="26" text="Copiloto : "/>
+	<s:Label x="19" y="42" text="Jefe de Cabina : "/>
+	<s:Label x="37" y="58" text="Tripulante 2 :"/>
+	<s:Label x="37" y="74" text="Tripulante 3 :"/>
+	<s:Label x="37" y="91" text="Tripulante 4 : "/>
+	<s:Label x="28" y="106" text="Despachador : "/>
+	<s:Label x="48" y="121" text="Mecanico : "/>
+	<s:Label x="111" y="10" width="158" id="cap" backgroundColor="#FBF5B4" height="14"/>
+	<s:Label x="111" y="26" width="158" id="cop" backgroundColor="#FBF5B4" height="14"/>
+	<s:Label x="111" y="42" width="158" id="jcab" backgroundColor="#FBF5B4" height="14"/>
+	<s:Label x="111" y="58" width="158" id="tri2" backgroundColor="#FBF5B4" height="14"/>
+	<s:Label x="111" y="74" width="158" id="tri3" backgroundColor="#FBF5B4" height="14"/>
+	<s:Label x="111" y="90" width="158" id="tri4" backgroundColor="#FBF5B4" height="14"/>
+	<s:Label x="111" y="106" width="158" id="desp" backgroundColor="#FBF5B4" height="14"/>
+	<s:Label x="111" y="122" width="158" id="mec" backgroundColor="#FBF5B4" height="14"/>
+</s:TitleWindow>

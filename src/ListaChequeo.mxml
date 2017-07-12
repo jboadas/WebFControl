@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="620" height="516" showCloseButton="true"  creationComplete="addListeners()">
+	<mx:Script source="listachequeo.as"/>
+    <mx:Script>
+        <![CDATA[
+            import mx.managers.PopUpManager;
+            [Embed(source="assets/alert.png")]
+			[Bindable]
+            public var iconoAlerta:Class; 
+            
+        ]]>
+    </mx:Script>
+	<mx:CheckBox x="18" y="102" label="Checkbox" width="261" id="ch1"/>
+	<mx:CheckBox x="18" y="132" label="Checkbox" width="261" id="ch2"/>
+	<mx:CheckBox x="18" y="162" label="Checkbox" width="261" id="ch3"/>
+	<mx:CheckBox x="18" y="192" label="Checkbox" width="261" id="ch4"/>
+	<mx:CheckBox x="18" y="222" label="Checkbox" width="261" id="ch5"/>
+	<mx:CheckBox x="18" y="252" label="Checkbox" width="261" id="ch6"/>
+	<mx:Button x="155" y="356" label="Aceptar" id="btok" click="fOk()"/>
+	<mx:Button x="229" y="356" label="Cancelar" id="btcancel" click="fCancel()"/>
+	<mx:TextInput x="117" y="356" id="evento" text="1111" width="36" visible="false"/>
+	<mx:Button x="18" y="356" label="Negar" height="22" width="69.5"   id="idNegar" click="fNegar()"/>
+	<mx:TextInput x="18" y="299" width="286" height="49" id="txtProceso" maxChars="255"/>
+	<mx:Label x="18" y="282" text="Observaciones."/>
+	<mx:Label x="18" y="386" text="Justificacion:" width="156" id="jlabel" visible="true"/>
+	<mx:TextInput x="18" y="403" width="286" height="67" id="jText" visible="true" enabled="false"/>
+	<mx:HRule x="18" y="95" width="286" height="8"/>
+	<mx:Label x="18" y="32" text="Ruta: " width="69.5"/>
+	<mx:Label x="18" y="61" text="Nro de Vuelo:" width="91.5"/>
+	<mx:Label x="67.5" y="32" width="236.5" alpha="1.0" id="lRuta"/>
+	<mx:Label x="18" y="6" text="Fecha: " width="69.5"/>
+	<mx:Label x="67.5" y="6" width="236.5" alpha="1.0" id="lFecha"/>
+	<mx:VRule x="312" y="38" width="17" height="434"/>
+	<mx:Label x="344" y="6" text="Tripulacion" width="72"/>
+	
+	<!-- Labels de los combobox de la seleccion de tripulantes -->
+	<mx:Label x="336" y="37" text="Capitan:" id="tCap"/>
+	<mx:Label x="336" y="65" text="Copiloto:" id="tCop"/>
+	<mx:Label x="336" y="93" text="J. Cabina:" width="67" id="tJcab"/>
+	<mx:Label x="336" y="123" text="Trip. 2:" id="tTrip1"/>
+	<mx:Label x="336" y="149" text="Trip. 3:" id="tTrip2"/>
+	<mx:Label x="336" y="205" text="Desp.:" id="tDesp"/>
+	<mx:Label x="336" y="235" text="Mec.:" id="tMec"/>
+	<mx:Label x="336" y="177" text="Trip. 4:" id="tTrip3"/>
+
+	<!-- Combobox de los tripulantes -->
+	<mx:ComboBox x="409" y="37" width="170" id="cCap" prompt="Seleccione ..." change="verifTripul()"></mx:ComboBox>
+	<mx:ComboBox x="409" y="65" width="170" id="cCop" prompt="Seleccione ..." change="verifTripul()"></mx:ComboBox>
+	<mx:ComboBox x="409" y="93" width="170" id="cJcab" prompt="Seleccione ..." change="verifTripul()"></mx:ComboBox>
+	<mx:ComboBox x="409" y="123" width="170" id="cTrip1" prompt="Seleccione ..." change="verifTripul()"></mx:ComboBox>
+	<mx:ComboBox x="409" y="149" width="170" id="cTrip2" prompt="Seleccione ..." change="verifTripul()"></mx:ComboBox>
+	<mx:ComboBox x="409" y="205" width="170" id="cDesp" prompt="Seleccione ..." change="verifTripul()"></mx:ComboBox>
+	<mx:ComboBox x="409" y="235" width="170" id="cMec" prompt="Seleccione ..." change="verifTripul()"></mx:ComboBox>
+	<mx:ComboBox x="409" y="177" width="170" id="cTrip3" prompt="Seleccione ..." change="verifTripul()"></mx:ComboBox>
+	
+	<!-- Estos botones se usan para limpiar el combobox de los tripulantes -->
+	<mx:Button x="590" y="37" width="16" cornerRadius="0"   id="rcap"/>
+	<mx:Button x="590" y="65" width="16" cornerRadius="0"   id="rcop"/>
+	<mx:Button x="590" y="93" width="16" cornerRadius="0"   id="rjcab"/>
+	<mx:Button x="590" y="123" width="16" cornerRadius="0"   id="rtri1"/>
+	<mx:Button x="590" y="149" width="16" cornerRadius="0"   id="rtri2"/>
+	<mx:Button x="590" y="177" width="16" cornerRadius="0"   id="rtri3"/>
+	<mx:Button x="590" y="205" width="16" cornerRadius="0"   id="rdesp"/>
+	<mx:Button x="590" y="235" width="16" cornerRadius="0"   id="rmec"/>
+
+	<mx:Label x="336" y="269" text="Informacion Adicional"/>
+	<mx:Button x="379" y="418" label="Editar Fecha y Hora" width="147" id="editFH" enabled="false" click="editarFecHor()"/>
+	<mx:TextArea x="336" y="295" width="201" height="115" editable="false" id="descripcion"/>
+	<mx:Button x="96" y="356" label="Info" id="btInfo" click="fInfo()" width="51"/>
+	<mx:TextInput id="nrovuelo" x="106" y="59" width="198" enabled="false"/>
+	
+</mx:TitleWindow>

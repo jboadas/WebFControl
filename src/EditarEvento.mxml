@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="442" height="498" title="" showCloseButton="true">
+	<mx:Script source="editarEvento.as"/>
+    <mx:Script>
+        <![CDATA[
+            import mx.managers.PopUpManager;
+            [Embed(source="assets/alert.png")]
+			[Bindable]
+            public var iconoAlerta:Class; 
+            
+        ]]>
+    </mx:Script>
+	<mx:Label x="10" y="12" text="Desde :"/>
+	<mx:DateField x="67" y="10" formatString="DD/MM/YYYY" id="fechaI"/>
+	<mx:Label x="239" y="12" text="Hasta : "/>
+	<mx:DateField x="288" y="10" formatString="DD/MM/YYYY" id="fechaF"/>
+	<mx:NumericStepper x="67" y="48" minimum="0" maximum="23" stepSize="1" id="horaI"/>
+	<mx:NumericStepper x="133" y="48" minimum="0" maximum="59" stepSize="1" id="minI"/>
+	<mx:NumericStepper x="288" y="48" minimum="0" maximum="23" stepSize="1" id="horaF"/>
+	<mx:NumericStepper x="354" y="48" minimum="0" maximum="59" stepSize="1" id="minF"/>
+	<mx:Label x="14" y="85" text="Nro de Vuelo:"/>
+	<mx:TextInput x="110" y="84" id="nrovuelo" width="220"/>
+	<mx:Label x="29" y="123" text="Operador :"/>
+	<mx:TextInput x="110" y="121" id="operador" width="220"/>
+	<mx:Label x="11" y="163" text="Ruta : " id="lruta"/>
+	<mx:Label x="66" y="163" text="De : " id="lde"/>
+	<mx:TextInput x="110" y="161" id="rutaI" width="220"/>
+	<mx:Label x="74" y="202" text="A : " id="la"/>
+	<mx:TextInput x="110" y="200" id="rutaF" width="220"/>
+	<mx:Button x="337" y="133" label="OK" width="75" height="61" click="fAceptar()" id="btAceptar"/>
+	<mx:TextArea x="15" y="379" width="402" height="59" id="log"/>
+	<mx:TextInput x="276" y="171" width="31" id="evento" text="99" enabled="false" visible="false"/>
+<!--
+	<mx:Label x="10" y="104" text="Descripcion :" id="ldescripcion" visible="false"/>
+	<mx:TextInput x="108" y="102" height="59" id="descripcion" visible="false"/>
+-->
+	<mx:Button x="337" y="108" label="Borrar" width="75"   color="#E91515" id="btBorrar" click="fBorrar()"/>
+	<mx:CheckBox x="13" y="234" label="Reiniciar Vuelo" width="113" id="reinicia"/>
+	<mx:Label x="15" y="263" text="Informacion Adicional"/>
+	<mx:TextArea x="15" y="279" width="402" height="68" id="descripcion"/>
+	<mx:Label x="15" y="355" text="Errores" color="#FF0000"/>
+	<mx:Button x="127" y="234" label="Informacion" id="btInfo" click="fInfo()"/>
+</mx:TitleWindow>

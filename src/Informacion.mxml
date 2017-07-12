@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"  xmlns:s="library://ns.adobe.com/flex/spark" width="454" height="568" title="Informacion" horizontalCenter="center">
+<fx:Script source="informacion.as"/>
+    <fx:Script>
+        <![CDATA[
+            import mx.managers.PopUpManager;
+            [Embed(source="assets/alert.png")]
+			[Bindable]
+            public var iconoAlerta:Class; 
+            
+        ]]>
+    </fx:Script>
+    <s:TextInput x="0" y="0" id="evento" text="1111" visible="false"/>
+	<s:Label x="10" y="10" text="Origen: "/>
+	<s:Label x="219" y="10" text="Destino: "/>
+	<s:Label x="10" y="36" text="Fecha de Inicio: "/>
+	<s:Label x="219" y="36" text="Hora de inicio:"/>
+	<s:Label x="10" y="62" text="Fecha culminacion:"/>
+	<s:Label x="219" y="62" text="Hora culminacion:"/>
+	<s:Label x="10" y="154" text="Status del Vuelo." width="111"/>
+	<s:Label x="129" y="62" width="82" id="lFCulmina" color="#0000FF"/>
+	<s:Label x="129" y="36" width="82" id="lFInicio" color="#0000FF"/>
+	<s:Label x="129" y="10" width="82" id="lOrigen" color="#0000FF"/>
+	<s:Label x="332" y="62" width="82" id="lHCulmina" color="#0000FF"/>
+	<s:Label x="129" y="122" width="82" id="nrovuelo" color="#0000FF"/>
+	<s:Label x="332" y="36" width="82" id="lHInicio" color="#0000FF"/>
+	<s:Label x="332" y="10" width="82" id="lDestino" color="#0000FF"/>
+	<s:Label x="10" y="175" width="404" id="lFase" color="#FF0000"/>
+	<s:Label x="10" y="227" width="404" id="lEspera1" color="#FF0000"/>
+	<s:Label x="10" y="253" width="404" id="lEspera2" color="#FF0000"/>
+	<s:Label x="10" y="279" width="404" id="lEspera3" color="#FF0000"/>
+	<s:Label x="10" y="201" width="404" id="lEspera0" color="#FF0000"/>
+	<s:Button x="182" y="405" label="Comentarios" id="btLogs" click="verlogs()" enabled="false"/>
+	<s:Button x="275" y="405" label="Listas" id="btCheck" click="verlistas()" enabled="false"/>
+	<s:Button x="10" y="405" label="Modificar" enabled="false" id="btModif" color="#000000" click="modificar()" />
+	<s:Label x="10" y="305" text="Informacion Adicional"/>
+	<s:TextArea x="10" y="320" width="432" height="77" editable="false" id="descripcion"/>
+	<s:Button x="88" y="405" label="Negar Vuelo" color="#FF0000" id="btnNegar" click="fNegar()" enabled="false"/>
+	<s:Label x="10" y="411" text="Justificacion:" width="110" id="jlabel" visible="false" height="20"/>
+	<s:Label x="10" y="91" text="Operador: "/>
+	<s:Label x="129" y="91" width="285" id="operador" color="#0000FF"/>
+	<s:TextArea x="10" y="449" width="432" height="71" id="jText"/>
+	<s:Button x="353" y="405" label="Tripulacion" id="btTripul" enabled="false" click="verTripulacion()"/>
+	<s:Label x="10" y="122" text="Numero de Vuelo:"/>
+	
+</s:TitleWindow>

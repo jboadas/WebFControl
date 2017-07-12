@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="400" height="436" title="Comentarios" showCloseButton="true">
+	<mx:TextArea x="10" y="147" width="171" wordWrap="true" editable="false" id="cmansol" height="51"/>
+	<mx:TextArea x="199" y="147" width="171" wordWrap="true" editable="false" id="cmaneje" height="51"/>
+	<mx:TextArea x="199" y="232" width="171" wordWrap="true" editable="false" id="csegeje" height="51"/>
+	<mx:TextArea x="199" y="62" width="171" wordWrap="true" editable="false" id="copeeje" height="51"/>
+	<mx:TextArea x="10" y="317" width="171" wordWrap="true" editable="false" id="clog" height="51"/>
+	<mx:TextArea x="10" y="62" width="171" wordWrap="true" editable="false" height="51" id="copesol"/>
+	<mx:TextArea x="10" y="232" width="171" wordWrap="true" editable="false" height="51" id="csegsol"/>
+	<mx:Label x="10" y="10" text="Fase de Solicitud"/>
+	<mx:Label x="199" y="10" text="Fase de Preparacion"/>
+	<mx:Label x="10" y="36" text="Operaciones"/>
+	<mx:Label x="199" y="36" text="Operaciones"/>
+	<mx:Label x="10" y="121" text="Mantenimiento"/>
+	<mx:Label x="199" y="121" text="Mantenimiento"/>
+	<mx:Label x="10" y="206" text="Seguridad"/>
+	<mx:Label x="199" y="206" text="Seguridad"/>
+	<mx:Label x="10" y="291" text="Otros comentarios"/>
+	<mx:Label x="199" y="291" text="Administracion"/>
+	<mx:TextArea x="199" y="317" width="171" wordWrap="true" editable="false" id="cadmeje" height="51"/>
+	<mx:VRule x="189" y="10" height="376"/>
+	
+</mx:TitleWindow>

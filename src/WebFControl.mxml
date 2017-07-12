@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	creationComplete="buscarSession()"
+	applicationComplete = "sizeApp()"
+	backgroundColor="#000000">
+	<fx:Script>import calendar.cellFactory;</fx:Script>
+	<fx:Script source="dibujarTabla.as"/>
+	<fx:Script source="servicios.as"/>
+    <fx:Script>
+        <![CDATA[
+        	import calendar.Evento;
+			import flash.geom.Rectangle;
+        	import mx.collections.ArrayCollection;
+            public var eventos:Array = new Array(); // array que contiene todos los eventos de un año
+            public var mantenimientos:Array = new Array(); // array que contiene todos los mantenimientos.
+			public var entrenamientos:Array = new Array(); // array que contiene todos los entrenamientos.
+            public var vuelosCol:ArrayCollection = new ArrayCollection(); //contiene la consulta XML al servidor
+            public var tripulantesCol:ArrayCollection; // contiene los nombres y los id de los tripulantes
+            public var login:String;
+            public var ger:String;
+            public var a:int;
+            public var m:int;
+            public var d:int;
+			public var aano:int;
+			public var ames:int;
+			public var adia:int;
+            [Embed(source="assets/alert.png")]
+			[Bindable]
+            public var iconoAlerta:Class;
+        	[Bindable]
+        	// ***** Recordar que el swf lo genera en el directiorio de SIGEG directamente
+			public var dirServer:String = "https://10.95.2.102/";
+			//public var dirServer:String = "http://localhost:3000/";
+        	//public var dirServer:String = "https://www.perlaairlines.com/";
+        	//public var dirServer:String = "https://www.perlaairlines.com:3000/";
+			//public var dirServer:String = "http://www.perlaairlines.com:8080/";
+			//trace( ExternalInterface.call("eval", "document.documentElement.clientWidth"));
+			public var _ancho:int;
+			public var _largo:int;
+        ]]>
+    </fx:Script>
+
+	<!-- 00000000000000000000000 -->
+	<!-- Servicios HTML          -->
+	<!-- 00000000000000000000000 -->    
+<fx:Declarations>
+	  
+	<!-- servicio de inicio de session -->
+	<mx:HTTPService 
+		id="getSession" 
+		url="{dirServer}wfcvuelos/inicio" 
+		useProxy="false" 
+		method="GET"
+        invoke="sessionInvokeHandler(event);"
+        result="sessionResultHandler(event);"
+        fault="sessionFaultHandler(event);"
+	/>
+    
+	<!-- servicio de listado de equipos -->
+    <mx:HTTPService 
+    	id="listEquipos" 
+    	url="{dirServer}cabequipos/list" 
+    	useProxy="false" 
+    	method="GET"
+        invoke="lequipInvokeHandler(event);"
+        result="lequipResultHandler(event);"
+        fault="lequipFaultHandler(event);"
+    	/>
+
+	<!-- servicio de listado de vuelos -->
+	<mx:HTTPService 
+		id="listVuelos" 
+		url="{dirServer}wfcvuelos/listVueloActual" 
+		useProxy="false" 
+		method="GET"
+        invoke="lvueloInvokeHandler(event);"
+        result="lvueloResultHandler(event);"
+        fault="lvueloFaultHandler(event);"
+		/>
+
+	<!-- servicio de listado de tripulaciones -->
+	<mx:HTTPService 
+		id="listTripulantes" 
+		url="{dirServer}wfcvuelos/listTripulacion" 
+		useProxy="false" 
+		method="GET"
+        invoke="ltripulInvokeHandler(event);"
+        result="ltripulResultHandler(event);"
+        fault="ltripulFaultHandler(event);"
+		/>
+
+	<!-- servicio de agregar nuevo vuelo/mantenimiento -->
+	<mx:HTTPService 
+		id="nuevoEventoBD" 
+		url="{dirServer}wfcvuelos/create" 
+		useProxy="false" 
+		method="POST"
+        invoke="nuevoInvokeHandler(event);"
+        result="nuevoResultHandler(event);"
+        fault="nuevoFaultHandler(event);"
+		/>
+	
+	<!-- servicio de actualizar vuelo/mantenimiento -->
+	<mx:HTTPService 
+		id="updateEvento" 
+		url="{dirServer}wfcvuelos/update" 
+		useProxy="false" 
+		method="POST"
+        invoke="updateInvokeHandler(event);"
+        result="updateResultHandler(event);"
+        fault="updateFaultHandler(event);"
+		/>
+
+	<!-- servicio de borrar vuelo/mantenimiento -->
+	<mx:HTTPService 
+		id="deleteEvento" 
+		url="{dirServer}wfcvuelos/delete" 
+		useProxy="false" 
+		method="POST"
+        invoke="deleteInvokeHandler(event);"
+        result="deleteResultHandler(event);"
+        fault="deleteFaultHandler(event);"
+		/>
+	  
+	  
+  </fx:Declarations>  
+
+	<!-- 00000000000000000000000 -->
+	<!-- La Pizarra              -->
+	<!-- 00000000000000000000000 -->    
+	
+	<!-- Contenedor principal -->
+	<s:BorderContainer 
+		width = "100%"
+		height = "100%"
+		backgroundColor="#1f1f1f" cornerRadius="10"
+		borderStyle="inset" borderWeight="4" >   
+		<!-- Caja vertical principal/ layot vertical -->
+		<mx:VBox left="10" bottom="0" top="0" width="100%">
+			<!-- Grid contenedor de los botones del menu -->
+			<mx:Grid width="100%">
+				<!-- Primera linea del grid -->
+				<mx:GridRow width="100%" height="100%">
+					<!-- Etiqueta equipo/combobox de seleccion de equipos -->
+					<mx:GridItem width="100%" height="100%">
+						<mx:Label text="Equipo" color="#FFFFFF"/>
+						<mx:ComboBox
+							id="comboEquipos" 
+							prompt="Seleccione Aeronave ..." change="cambioEquipo(event)"
+							 width="214"
+						/>
+					</mx:GridItem>
+					<!-- Boton de nuevo vuelo -->
+					<mx:GridItem width="100%" height="100%">
+						<mx:Button label="Nuevo Vuelo" width="70%" click="nuevoEvento()"
+						id="btnVuelo" enabled="false"
+					/>
+					<!-- Boton de salir -->
+					</mx:GridItem>
+					<mx:GridItem width="100%" height="100%" horizontalCenter="true">
+						<mx:Button label="Salir" click="salir()"  width="70%"/>
+					</mx:GridItem>
+				</mx:GridRow>
+				<!-- Segunda linea del grid -->
+				<mx:GridRow width="100%" height="100%">
+					<!-- Etiqueta de usuario/nombre usuario desde la BD -->
+					<mx:GridItem width="100%" height="100%">
+						<mx:Label text="Usuario:" color="#FFFFFF"/>
+						<mx:Label text="---" id="iLogin" color="#FFFFFF"/>
+					</mx:GridItem>
+					<!-- Boton para agregar un mantenimiento -->
+					<mx:GridItem width="100%" height="100%">
+						<mx:Button label="Nuevo Mantenimiento" width="70%"
+						click="nuevoMantenimiento()" id="btnMantenimiento"
+						enabled="false"
+					/>
+					</mx:GridItem>
+					<!-- Boton para salir de la aplicacion -->
+					<mx:GridItem width="100%" height="100%">
+						<mx:Button label="Refrescar" click="refrescar()" width="70%" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<!-- tercera linea del grid -->
+				<mx:GridRow width="100%" height="100%">
+					<!-- Label gerencia / nombre de la gerencia de la BD
+					gerencia donde hereda los permisos -->
+					<mx:GridItem width="100%" height="100%">
+						<mx:Label text="Gerencia:" color="#FFFFFF"/>
+						<mx:Label text="---" id="iGer" color="#FFFFFF"/>
+					</mx:GridItem>
+					<!-- Boton para crear entrenamientos/capacitacion -->
+					<mx:GridItem width="100%" height="100%">
+						<mx:Button label="Nuevo Entrenamiento" enabled="false" 
+						id="btnCapacitacion" click="nuevoEntrenamiento()" width="150"
+						visible="false" />
+					</mx:GridItem>
+					<!-- Boton de ayuda de loa colores -->
+					<mx:GridItem width="100%" height="100%">
+						<mx:Button label="Leyenda" click="ayuda()" width="70%" />
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:Grid>
+			<!-- PIZARRA DE VUELOS -->
+			<mx:Grid width="100%">
+					<mx:GridRow width="100%" height="100%">
+						<!-- por alguna extraña razon sin esta etiqueta no se ven las horas -->
+						<mx:GridItem>
+						</mx:GridItem>
+						<!-- Segunda linea del grid -->
+						<mx:GridItem>
+							<!-- aqui se dibujan las horas desde 0 a 23 -->
+							<!-- En este canvas solo se dibuja el boder -->
+							<mx:Canvas width="100%" height="50" id="conSup" horizontalScrollPolicy="off"
+							verticalScrollPolicy="off" borderStyle="solid" borderColor="#000000"
+							cornerRadius="3">
+								<!-- Canvas dentro de canvas  aqui se dibujan las horas -->
+								<mx:Canvas width="100%" height="50" id="contenidoSup" cornerRadius="0"
+								borderColor="#2A5C80" borderStyle="none" creationComplete="dibujaHora()"
+								backgroundColor="#7E83AB">
+								</mx:Canvas> 
+							</mx:Canvas>
+						</mx:GridItem>
+					</mx:GridRow>
+					<!-- Tercera linea del grid -->
+					<mx:GridRow width="100%" height="100%">
+						<!-- Aqui de dibujan las fechas verticalmente -->
+						<mx:GridItem width="100" height="100%">
+							<!-- Solo dibuja el borde -->
+							<mx:Canvas width="100%" height="100%" id="conIzq" horizontalScrollPolicy="off"
+								verticalScrollPolicy="off" borderStyle="solid" borderColor="#000000"
+								cornerRadius="3">
+							<!-- Aqui se dibujan las fechas -->
+								<mx:Canvas width="100%" height="10950" id="contenidoIzq" cornerRadius="0"
+									borderColor="#000000" borderStyle="none" dropShadowVisible="false" x="5"
+									borderVisible="false">
+								</mx:Canvas>
+							</mx:Canvas>
+						</mx:GridItem>
+						<!-- Aqui se dibujan los vuelos -->
+						<mx:GridItem width="100%" height="100%">
+							<!-- dibuja el borde de la sabana -->
+							<mx:Canvas width="100%" height="100%" id="conCentral" 
+								horizontalScrollPolicy="off" verticalScrollPolicy="on" 
+								borderStyle="solid" borderColor="#000000" cornerRadius="3"
+								scroll="dragScroll(event)">
+								<!-- Dibuja la sabana -->
+								<mx:Canvas width="100%" height="10950" id="contenido" cornerRadius="2"
+									borderStyle="none" creationComplete="iniciaRed()"  dropShadowVisible="false"
+									borderVisible="false">
+								</mx:Canvas>
+							</mx:Canvas>
+						</mx:GridItem>
+					</mx:GridRow>
+			</mx:Grid>
+		</mx:VBox>
+	</s:BorderContainer> 
+</s:Application>

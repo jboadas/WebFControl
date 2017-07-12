@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="256" height="286" title="Status de Items" horizontalAlign="center" showCloseButton="true">
+	<mx:Canvas x="10" y="10" width="29" height="26" backgroundColor="#0098FF" >
+	</mx:Canvas>
+	<mx:Label x="47" y="18" text="Fase de solicitud" width="100"/>
+	<mx:Canvas x="10" y="44" width="29" height="26" backgroundColor="#000066" >
+	</mx:Canvas>
+	<mx:Label x="47" y="52" text="Fase de preparacion" width="119"/>
+	<mx:Canvas x="10" y="78" width="29" height="26" backgroundColor="#00FF00">
+	</mx:Canvas>
+	<mx:Label x="47" y="86" text="Vuelo listo para ejecucion" width="149"/>
+	<mx:Canvas x="10" y="112" width="29" height="26" backgroundColor="#999999">
+	</mx:Canvas>
+	<mx:Label x="47" y="120" text="Vuelo cancelado" width="100"/>
+	<mx:Canvas x="10" y="146" width="29" height="26" backgroundColor="#CC6600">
+	</mx:Canvas>
+	<mx:Label x="47" y="154" text="Mantenimiento programado" width="167"/>
+	<mx:Canvas x="10" y="180" width="29" height="26" backgroundColor="#CC0000">
+	</mx:Canvas>
+	<mx:Label x="47" y="188" text="Mantenimiento no programado" width="183"/>
+	<mx:Canvas x="10" y="214" width="29" height="26" backgroundColor="#550055" color="#000000">
+	</mx:Canvas>
+	<mx:Label x="47" y="222" text="Entrenamiento" width="183"/>
+	
+</mx:TitleWindow>

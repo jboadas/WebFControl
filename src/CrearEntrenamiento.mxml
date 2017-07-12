@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="460" height="280" showCloseButton="true">
+	<mx:Script source="crearEntrenamiento.as"/>
+    <mx:Script>
+        <![CDATA[
+            import mx.managers.PopUpManager;
+            [Embed(source="assets/alert.png")]
+			[Bindable]
+            public var iconoAlerta:Class; 
+            
+        ]]>
+    </mx:Script>
+	<mx:Label x="10" y="12" text="Desde :"/>
+	<mx:DateField x="67" y="10" formatString="DD/MM/YYYY" id="fechaI"/>
+	<mx:Label x="239" y="12" text="Hasta : "/>
+	<mx:DateField x="288" y="10" formatString="DD/MM/YYYY" id="fechaF"/>
+	<mx:NumericStepper x="67" y="48" minimum="0" maximum="23" stepSize="1" id="horaI"/>
+	<mx:NumericStepper x="133" y="48" minimum="0" maximum="59" stepSize="1" id="minI"/>
+	<mx:NumericStepper x="288" y="48" minimum="0" maximum="23" stepSize="1" id="horaF"/>
+	<mx:NumericStepper x="354" y="48" minimum="0" maximum="59" stepSize="1" id="minF"/>
+	<mx:TextArea x="10" y="103" height="61" id="descripcion" width="359"/>
+	<mx:Button x="377" y="103" label="Aceptar" width="75" height="61" click="efAceptar()" id="btAceptar"/>
+	<mx:TextArea x="10" y="172" width="438" height="59" id="log"/>
+	<mx:TextInput x="276" y="141" width="31" id="evento" text="99" enabled="false" visible="false"/>
+	<mx:Label x="6" y="79" text="Descripcion :" id="ldescripcion"/>
+	<mx:Button x="337" y="78" label="Borrar" width="75"   color="#FF0000" id="btBorrar" click="fBorrar()" visible="false"/>
+	<mx:RadioButtonGroup id="tipoMant"/>
+
+</mx:TitleWindow>
